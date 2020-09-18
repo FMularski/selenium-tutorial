@@ -13,6 +13,7 @@ driver.get('https://techwithtim.net')
 print(driver.title)
 
 search = driver.find_element_by_name('s')
+search.clear()  # clears search field before sending keys
 search.send_keys('test')
 search.send_keys(Keys.RETURN)
 

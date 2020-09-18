@@ -1,6 +1,6 @@
 import unittest
 from selenium import webdriver
-import page
+from testcase import page
 
 
 class PythonOrgSearch(unittest.TestCase):
@@ -9,9 +9,13 @@ class PythonOrgSearch(unittest.TestCase):
         self.driver = webdriver.Chrome('C:\\chromedriver.exe')
         self.driver.get('http://www.python.org')
 
-    def test_title(self):
-        main_page = page.MainPage()
+    def test_search_python(self):
+        main_page = page.MainPage(self.driver)
         assert main_page.is_title_matches()
+        main_page.search_text_element = 'pycon'
+        main_page.click_go_button()
+        search_result_page = page.SearchResultPage(self.driver)
+        assert search_result_page.is_results_found()
 
     def tearDown(self):
         self.driver.close()
